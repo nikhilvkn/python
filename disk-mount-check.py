@@ -5,7 +5,7 @@ import time
 import sys
 
 servers = ['xxx']
-USERNAME = 'xxx'
+USERNAME = 'xxxx'
 KEY = 'xxx'
 
 @func_set_timeout(4)
