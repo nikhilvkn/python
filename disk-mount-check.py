@@ -1,4 +1,3 @@
-
 from func_timeout import FunctionTimedOut, func_set_timeout
 import paramiko
 import time
@@ -54,4 +53,3 @@ if __name__ == '__main__':
         sys.exit()
     except KeyboardInterrupt:
         pass
-

@@ -1,4 +1,3 @@
-
 import paramiko
 import re
 
@@ -46,4 +45,3 @@ if __name__ == '__main__':
         findipaddress(servers)
     except KeyboardInterrupt:
         pass
-
