@@ -4,7 +4,7 @@ import paramiko
 import time
 import sys
 
-servers = ['xxx']
+servers = ['xxxx']
 USERNAME = 'xxxx'
 KEY = 'xxx'
 

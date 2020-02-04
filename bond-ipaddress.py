@@ -2,8 +2,8 @@
 import paramiko
 import re
 
-USERNAME = 'xxx'
-KEY = 'xxx'
+USERNAME = 'xxxx'
+KEY = 'xxxx'
 
 class connect_to:
 	def __init__(self, server_name):
