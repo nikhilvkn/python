@@ -1,2 +1,2 @@
 # Python
-my python code and documents 
+python code and documents 
