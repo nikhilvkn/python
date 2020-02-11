@@ -4,8 +4,8 @@ import pandas as pd
 import logging
 import boto3
 
-AWS_PROFILE='xxx'
-AWS_REGION='xxx'
+AWS_PROFILE='xxxx'
+AWS_REGION='xxxx'
 
 def gatherinstanceid():
     ''' function to gather instance id '''
