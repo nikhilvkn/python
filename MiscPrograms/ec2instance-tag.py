@@ -58,6 +58,10 @@ if __name__ == '__main__':
         instanceid = gatherinstanceid()  
         count = 0
         for instance in dataframe['InstanceID']:
+	    if instance not in instanceid:
+		logging.info('Instance {} not exists'.format(instance))
+		count += 1
+		continue
             logging.info('Updating {}'.format(instance))
             createtag(count,instance)
             count += 1
@@ -67,5 +71,5 @@ if __name__ == '__main__':
     except Exception as e:
         logging.exception("Exception occurred")
     finally:
-        logging.info('\n Completed Execution \n')
+        logging.info('\nCompleted Execution \n')
 
