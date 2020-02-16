@@ -1,0 +1,44 @@
+---
+- name: "installing rpms on all servers"
+  hosts: refservers
+  ignore_errors: yes
+  gather_facts: no
+
+  tasks:
+    - find:
+        path: /tmp/
+        pattern: '*.rpm'
+      register: find_result
+    - name: "registering facts"
+      set_fact:
+          all_rpm: "{{ find_result.files | map(attribute='path') | list }}"
+      when: find_result > 0
+    - name: "installaton started"
+      yum:
+        pkg: "{{ item }}"
+        disablerepo: '*'
+        disable_gpg_check: yes
+        state: present
+      become: yes
+      become_method: su
+      with_items: "{{ all_rpm }}"
+      when: find_result > 0
+
+- name: "cleaning up packages"
+  hosts: refservers
+  ignore_errors: yes
+  gather_facts: no
+
+  tasks:
+    - name: "removing files"
+      file:
+        path: '{{ item }}'
+        state: absent
+      with_items: "{{ all_rpm }}"
+
+
+#END
+ 
+
+
+ 

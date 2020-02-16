@@ -1,0 +1,21 @@
+[all]
+rstt2 ansible_host=xxxx
+rsl1 ansible_host=xxxx
+rsl2 ansible_host=xxxx
+rss1 ansible_host=xxxx
+rsp1 ansible_host=xxxx
+
+[servers2]
+rstt2
+rsl1
+
+[servers1]
+rss1
+
+[production]
+rsp1
+
+[refservers:children]
+servers2
+servers1
+production
