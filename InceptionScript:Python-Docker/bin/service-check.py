@@ -3,6 +3,7 @@ from paramiko import SSHClient, AutoAddPolicy, RSAKey
 import inception
 import requests
 import argparse
+import logging
 import socket
 import json
 import sys
@@ -12,7 +13,7 @@ import os
 KEY = 'xxx'
 USERNAME = 'xxx'
 DOCKER_COMMAND = 'docker ps -a --format "table {{.Names}}\t{{.Status}}"'
-ERROR_WORDS = ['DOWN','NOT RUNNING','REBALANCING']
+ERROR_WORDS = ['DOWN','NOT RUNNING','REBALANCING','UNKNOWN']
 
 
 class RemoteConnect:
@@ -27,9 +28,7 @@ class RemoteConnect:
 							 username=USERNAME, 
 							 key_filename=KEY, 
 							 timeout=20)
-		except AuthenticationException:
-			print('Authentication Failed: Please check your network/ssh key')
-		except socket.timeout:
+		except (AuthenticationException, socket.timeout):
 			print('SSHConnectionError: Failed to connect server\n')
 			sys.exit()
 
@@ -59,7 +58,7 @@ class ServiceCheck():
 
 
 class ServicePrint(ServiceCheck):
-	'''Handle print method efficiently'''
+	'''Class to handle print method efficiently'''
 
 	def __init__(self, service_name, dc_data, environment):
 		super().__init__(service_name, dc_data, environment)
@@ -71,7 +70,10 @@ class ServicePrint(ServiceCheck):
 			else:
 				print('Service Status   : NOT READY')
 				return
-		print('Service Status   : UP')
+		if 'UP' in str(data):
+			print('Service Status   : UP')
+		else:
+			print(data)
 
 	def info_print(self, data):
 		if data:
@@ -177,3 +179,5 @@ if __name__ == '__main__':
 		main()
 	except KeyboardInterrupt:
 		pass
+	except Exception as inception_exception:
+		logging.exception(inception_exception)
