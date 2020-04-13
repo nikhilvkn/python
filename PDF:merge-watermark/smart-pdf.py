@@ -9,7 +9,7 @@ def merge_from_directory(directory, name):
 	# To run this program, given directory and program.py,
 	# must be in the same location
 	merger = PyPDF2.PdfFileMerger()
-	pdf_files = [pdf for pdf in os.listdir(directory) if pdf.endswith(".pdf")]
+	pdf_files = [os.path.join(directory, pdf) for pdf in os.listdir(directory) if pdf.endswith(".pdf")]
 	for pdf in pdf_files:
 		merger.append(pdf)
 	merger.write(os.path.join(directory, name))
@@ -72,7 +72,7 @@ def main():
 			print('RuntimeError: -n should be included with -f & -d. Please check help option')
 
 	except FileNotFoundError as e:
-		print(e)
+		print(f'FileNotFoundError: {e}')
 	except Exception as exception:
 		print(f'Exception: {exception}')
 
